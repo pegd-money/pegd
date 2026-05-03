@@ -1,0 +1,24 @@
+target/
+node_modules/
+dist/
+build/
+.anchor/
+test-ledger/
+*.log
+.DS_Store
+.env
+.env.local
+.env.*.local
+.idea/
+.vscode/
+*.swp
+package-lock.json
+yarn.lock
+
+# never publish generator scripts to this public mirror
+main.py
+generator.py
+builder.py
+readme_banner.py
+image_gen.py
+.pegd/

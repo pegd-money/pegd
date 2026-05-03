@@ -1,0 +1,30 @@
+[toolchain]
+anchor_version = "0.31.1"
+
+[features]
+seeds = false
+skip-lint = false
+
+[programs.localnet]
+pegd_issuance = "11111111111111111111111111111111"
+pegd_compliance_hook = "11111111111111111111111111111111"
+
+[programs.mainnet]
+pegd_issuance = "11111111111111111111111111111111"
+pegd_compliance_hook = "11111111111111111111111111111111"
+
+[registry]
+url = "https://api.apr.dev"
+
+[provider]
+cluster = "localnet"
+wallet = "~/.config/solana/id.json"
+
+[workspace]
+members = [
+    "programs/pegd_issuance",
+    "programs/pegd_compliance_hook",
+]
+
+[scripts]
+test = "yarn run ts-mocha -p ./tests/tsconfig.json -t 1000000 tests/**/*.ts"
