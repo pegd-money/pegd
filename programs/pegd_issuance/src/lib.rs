@@ -39,4 +39,12 @@ pub mod pegd_issuance {
             has_compliance_hook,
         )
     }
+
+    pub fn deposit_collateral(ctx: Context<DepositCollateral>, amount: u64) -> Result<()> {
+        instructions::deposit::handler(ctx, amount)
+    }
+
+    pub fn mint_stable(ctx: Context<MintStable>, amount: u64, reserve_value_usd: u64) -> Result<()> {
+        instructions::mint::handler(ctx, amount, reserve_value_usd)
+    }
 }
