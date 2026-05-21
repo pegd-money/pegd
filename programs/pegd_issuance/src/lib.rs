@@ -47,4 +47,16 @@ pub mod pegd_issuance {
     pub fn mint_stable(ctx: Context<MintStable>, amount: u64, reserve_value_usd: u64) -> Result<()> {
         instructions::mint::handler(ctx, amount, reserve_value_usd)
     }
+
+    pub fn burn_stable(ctx: Context<BurnStable>, amount: u64) -> Result<()> {
+        instructions::burn::handler(ctx, amount)
+    }
+
+    pub fn pause_issuance(ctx: Context<PauseResume>) -> Result<()> {
+        instructions::pause::handler_pause(ctx)
+    }
+
+    pub fn resume_issuance(ctx: Context<PauseResume>) -> Result<()> {
+        instructions::pause::handler_resume(ctx)
+    }
 }
