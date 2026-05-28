@@ -52,6 +52,24 @@ pub mod pegd_issuance {
         instructions::burn::handler(ctx, amount)
     }
 
+    pub fn commit_attestation(
+        ctx: Context<CommitAttestation>,
+        timestamp: i64,
+        total_supply: u64,
+        reserve_value_usd: u64,
+        ratio_bps: u32,
+        signature: [u8; 64],
+    ) -> Result<()> {
+        instructions::attest::handler(
+            ctx,
+            timestamp,
+            total_supply,
+            reserve_value_usd,
+            ratio_bps,
+            signature,
+        )
+    }
+
     pub fn pause_issuance(ctx: Context<PauseResume>) -> Result<()> {
         instructions::pause::handler_pause(ctx)
     }
