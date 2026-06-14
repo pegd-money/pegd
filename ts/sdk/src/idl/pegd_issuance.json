@@ -1,0 +1,1247 @@
+{
+  "address": "11111111111111111111111111111111",
+  "metadata": {
+    "name": "pegd_issuance",
+    "version": "0.1.0",
+    "spec": "0.1.0"
+  },
+  "instructions": [
+    {
+      "name": "burn_stable",
+      "discriminator": [
+        172,
+        174,
+        118,
+        121,
+        232,
+        82,
+        254,
+        180
+      ],
+      "accounts": [
+        {
+          "name": "stable_meta",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  116,
+                  97,
+                  98,
+                  108,
+                  101,
+                  95,
+                  109,
+                  101,
+                  116,
+                  97
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "stable_mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "stable_mint",
+          "writable": true
+        },
+        {
+          "name": "issuer",
+          "signer": true,
+          "relations": [
+            "stable_meta"
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "commit_attestation",
+      "discriminator": [
+        189,
+        31,
+        48,
+        199,
+        210,
+        173,
+        251,
+        43
+      ],
+      "accounts": [
+        {
+          "name": "stable_meta",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  116,
+                  97,
+                  98,
+                  108,
+                  101,
+                  95,
+                  109,
+                  101,
+                  116,
+                  97
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "stable_mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "attestation",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  101,
+                  115,
+                  101,
+                  114,
+                  118,
+                  101,
+                  95,
+                  97,
+                  116,
+                  116,
+                  101,
+                  115,
+                  116,
+                  97,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "stable_mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "stable_mint"
+        },
+        {
+          "name": "attestor",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "timestamp",
+          "type": "i64"
+        },
+        {
+          "name": "total_supply",
+          "type": "u64"
+        },
+        {
+          "name": "reserve_value_usd",
+          "type": "u64"
+        },
+        {
+          "name": "ratio_bps",
+          "type": "u32"
+        },
+        {
+          "name": "signature",
+          "type": {
+            "array": [
+              "u8",
+              64
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "deposit_collateral",
+      "discriminator": [
+        156,
+        131,
+        142,
+        116,
+        146,
+        247,
+        162,
+        120
+      ],
+      "accounts": [
+        {
+          "name": "stable_meta",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  116,
+                  97,
+                  98,
+                  108,
+                  101,
+                  95,
+                  109,
+                  101,
+                  116,
+                  97
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "stable_mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault_state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "stable_mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "stable_mint"
+        },
+        {
+          "name": "issuer",
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "stable_meta"
+          ]
+        },
+        {
+          "name": "collateral_mint"
+        },
+        {
+          "name": "oracle"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "initialize_config",
+      "discriminator": [
+        208,
+        127,
+        21,
+        1,
+        194,
+        190,
+        196,
+        70
+      ],
+      "accounts": [
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  101,
+                  103,
+                  100,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "treasury"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "min_ratio_bps",
+          "type": "u32"
+        },
+        {
+          "name": "liquidation_bps",
+          "type": "u32"
+        },
+        {
+          "name": "circuit_bps",
+          "type": "u32"
+        }
+      ]
+    },
+    {
+      "name": "mint_stable",
+      "discriminator": [
+        207,
+        156,
+        115,
+        47,
+        14,
+        85,
+        92,
+        28
+      ],
+      "accounts": [
+        {
+          "name": "config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  101,
+                  103,
+                  100,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "stable_meta",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  116,
+                  97,
+                  98,
+                  108,
+                  101,
+                  95,
+                  109,
+                  101,
+                  116,
+                  97
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "stable_mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault_state",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  115,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "stable_mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "stable_mint",
+          "writable": true
+        },
+        {
+          "name": "issuer",
+          "signer": true,
+          "relations": [
+            "stable_meta"
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        },
+        {
+          "name": "reserve_value_usd",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "pause_issuance",
+      "discriminator": [
+        199,
+        13,
+        129,
+        236,
+        144,
+        181,
+        138,
+        152
+      ],
+      "accounts": [
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  101,
+                  103,
+                  100,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "admin",
+          "signer": true,
+          "relations": [
+            "config"
+          ]
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "register_stable",
+      "discriminator": [
+        84,
+        1,
+        137,
+        248,
+        138,
+        137,
+        188,
+        254
+      ],
+      "accounts": [
+        {
+          "name": "config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  101,
+                  103,
+                  100,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "stable_meta",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  116,
+                  97,
+                  98,
+                  108,
+                  101,
+                  95,
+                  109,
+                  101,
+                  116,
+                  97
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "stable_mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "stable_mint",
+          "writable": true
+        },
+        {
+          "name": "issuer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "peg_currency",
+          "type": {
+            "array": [
+              "u8",
+              8
+            ]
+          }
+        },
+        {
+          "name": "collateral_mode",
+          "type": "u8"
+        },
+        {
+          "name": "min_ratio_bps",
+          "type": "u32"
+        },
+        {
+          "name": "yield_rate_bps",
+          "type": "u32"
+        },
+        {
+          "name": "has_compliance_hook",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "resume_issuance",
+      "discriminator": [
+        225,
+        10,
+        210,
+        222,
+        48,
+        32,
+        11,
+        146
+      ],
+      "accounts": [
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  101,
+                  103,
+                  100,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "admin",
+          "signer": true,
+          "relations": [
+            "config"
+          ]
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Config",
+      "discriminator": [
+        155,
+        12,
+        170,
+        224,
+        30,
+        250,
+        204,
+        130
+      ]
+    },
+    {
+      "name": "ReserveAttestation",
+      "discriminator": [
+        105,
+        212,
+        95,
+        216,
+        140,
+        42,
+        205,
+        75
+      ]
+    },
+    {
+      "name": "StablecoinMeta",
+      "discriminator": [
+        142,
+        62,
+        231,
+        89,
+        74,
+        17,
+        123,
+        108
+      ]
+    },
+    {
+      "name": "VaultState",
+      "discriminator": [
+        228,
+        196,
+        82,
+        165,
+        98,
+        210,
+        235,
+        152
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "AttestationCommitted",
+      "discriminator": [
+        39,
+        198,
+        130,
+        214,
+        119,
+        52,
+        71,
+        7
+      ]
+    },
+    {
+      "name": "BurnedStable",
+      "discriminator": [
+        12,
+        70,
+        171,
+        82,
+        238,
+        242,
+        179,
+        88
+      ]
+    },
+    {
+      "name": "CircuitBreakerTriggered",
+      "discriminator": [
+        58,
+        7,
+        35,
+        109,
+        165,
+        114,
+        119,
+        58
+      ]
+    },
+    {
+      "name": "DepositedCollateral",
+      "discriminator": [
+        68,
+        5,
+        45,
+        75,
+        2,
+        174,
+        149,
+        178
+      ]
+    },
+    {
+      "name": "IssuancePauseChanged",
+      "discriminator": [
+        70,
+        200,
+        207,
+        19,
+        12,
+        136,
+        46,
+        5
+      ]
+    },
+    {
+      "name": "MintedStable",
+      "discriminator": [
+        0,
+        105,
+        239,
+        147,
+        60,
+        45,
+        198,
+        65
+      ]
+    },
+    {
+      "name": "RegisteredStable",
+      "discriminator": [
+        18,
+        167,
+        56,
+        15,
+        206,
+        156,
+        230,
+        122
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "RatioBelowMinimum",
+      "msg": "Collateral ratio below minimum required for this mode"
+    },
+    {
+      "code": 6001,
+      "name": "CircuitBreakerTripped",
+      "msg": "Collateral ratio below circuit breaker threshold"
+    },
+    {
+      "code": 6002,
+      "name": "IssuancePaused",
+      "msg": "Issuance is paused by the admin"
+    },
+    {
+      "code": 6003,
+      "name": "UnknownCollateralMode",
+      "msg": "Unknown collateral mode"
+    },
+    {
+      "code": 6004,
+      "name": "EmptyPegCurrency",
+      "msg": "Peg currency identifier is empty"
+    },
+    {
+      "code": 6005,
+      "name": "YieldRateOutOfRange",
+      "msg": "Yield rate exceeds allowed maximum"
+    },
+    {
+      "code": 6006,
+      "name": "UnauthorizedAdmin",
+      "msg": "Only the admin authority can perform this action"
+    },
+    {
+      "code": 6007,
+      "name": "UnauthorizedIssuer",
+      "msg": "Only the recorded issuer can perform this action"
+    },
+    {
+      "code": 6008,
+      "name": "AttestorSignatureInvalid",
+      "msg": "Attestor signature verification failed"
+    },
+    {
+      "code": 6009,
+      "name": "StaleAttestation",
+      "msg": "Attestation timestamp is stale"
+    },
+    {
+      "code": 6010,
+      "name": "FutureAttestation",
+      "msg": "Attestation timestamp is in the future"
+    },
+    {
+      "code": 6011,
+      "name": "ReservesUnderCollateral",
+      "msg": "Reserve value under-collateralizes reported supply"
+    },
+    {
+      "code": 6012,
+      "name": "NumericOverflow",
+      "msg": "Numeric overflow while updating vault state"
+    },
+    {
+      "code": 6013,
+      "name": "BurnExceedsSupply",
+      "msg": "Burn amount exceeds outstanding supply"
+    },
+    {
+      "code": 6014,
+      "name": "InsufficientCollateral",
+      "msg": "Vault has insufficient collateral to cover this operation"
+    },
+    {
+      "code": 6015,
+      "name": "InvalidThresholdOrder",
+      "msg": "Requested threshold parameters violate ordering invariants"
+    }
+  ],
+  "types": [
+    {
+      "name": "AttestationCommitted",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "attestor",
+            "type": "pubkey"
+          },
+          {
+            "name": "stable_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          },
+          {
+            "name": "ratio_bps",
+            "type": "u32"
+          },
+          {
+            "name": "reserve_value_usd",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BurnedStable",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "issuer",
+            "type": "pubkey"
+          },
+          {
+            "name": "stable_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "new_issued_supply",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "CircuitBreakerTriggered",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "stable_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "ratio_bps",
+            "type": "u32"
+          },
+          {
+            "name": "threshold_bps",
+            "type": "u32"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Config",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "admin",
+            "type": "pubkey"
+          },
+          {
+            "name": "treasury",
+            "type": "pubkey"
+          },
+          {
+            "name": "paused",
+            "type": "bool"
+          },
+          {
+            "name": "min_ratio_bps",
+            "type": "u32"
+          },
+          {
+            "name": "liquidation_bps",
+            "type": "u32"
+          },
+          {
+            "name": "circuit_bps",
+            "type": "u32"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "DepositedCollateral",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "issuer",
+            "type": "pubkey"
+          },
+          {
+            "name": "stable_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "new_collateral_amount",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "IssuancePauseChanged",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "admin",
+            "type": "pubkey"
+          },
+          {
+            "name": "paused",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "MintedStable",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "issuer",
+            "type": "pubkey"
+          },
+          {
+            "name": "stable_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "new_issued_supply",
+            "type": "u64"
+          },
+          {
+            "name": "ratio_bps",
+            "type": "u32"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RegisteredStable",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "issuer",
+            "type": "pubkey"
+          },
+          {
+            "name": "stable_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "peg_currency",
+            "type": {
+              "array": [
+                "u8",
+                8
+              ]
+            }
+          },
+          {
+            "name": "collateral_mode",
+            "type": "u8"
+          },
+          {
+            "name": "yield_rate_bps",
+            "type": "u32"
+          },
+          {
+            "name": "has_compliance_hook",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ReserveAttestation",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "stable_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          },
+          {
+            "name": "total_supply",
+            "type": "u64"
+          },
+          {
+            "name": "reserve_value_usd",
+            "type": "u64"
+          },
+          {
+            "name": "ratio_bps",
+            "type": "u32"
+          },
+          {
+            "name": "attestor",
+            "type": "pubkey"
+          },
+          {
+            "name": "signature",
+            "type": {
+              "array": [
+                "u8",
+                64
+              ]
+            }
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "StablecoinMeta",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "issuer",
+            "type": "pubkey"
+          },
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "peg_currency",
+            "type": {
+              "array": [
+                "u8",
+                8
+              ]
+            }
+          },
+          {
+            "name": "collateral_mode",
+            "type": "u8"
+          },
+          {
+            "name": "min_ratio_bps",
+            "type": "u32"
+          },
+          {
+            "name": "has_compliance_hook",
+            "type": "bool"
+          },
+          {
+            "name": "has_yield",
+            "type": "bool"
+          },
+          {
+            "name": "yield_rate_bps",
+            "type": "u32"
+          },
+          {
+            "name": "issued_supply",
+            "type": "u64"
+          },
+          {
+            "name": "reserves_value_usd",
+            "type": "u64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "VaultState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "stable_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "collateral_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "collateral_amount",
+            "type": "u64"
+          },
+          {
+            "name": "oracle",
+            "type": "pubkey"
+          },
+          {
+            "name": "last_updated",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "name": "@pegd/sdk",
+  "version": "0.1.0",
+  "description": "Pegd TypeScript SDK -- PegdIssuer client for stablecoin issuance, PoR queries, and vault management.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@coral-xyz/anchor": "^0.31.0",
+    "@pegd/issuance-core": "workspace:*",
+    "@pegd/risk-module": "workspace:*",
+    "@solana/spl-token": "^0.4.9",
+    "@solana/wallet-adapter-base": "^0.9.24",
+    "@solana/web3.js": "^1.98.0",
+    "bn.js": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/bn.js": "^5.1.6",
+    "typescript": "^5.6.3"
+  }
+}
