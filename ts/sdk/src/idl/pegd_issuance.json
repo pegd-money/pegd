@@ -52,11 +52,19 @@
           "writable": true
         },
         {
+          "name": "source",
+          "writable": true
+        },
+        {
           "name": "issuer",
           "signer": true,
           "relations": [
             "stable_meta"
           ]
+        },
+        {
+          "name": "token_program",
+          "address": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"
         }
       ],
       "args": [
@@ -79,6 +87,53 @@
         43
       ],
       "accounts": [
+        {
+          "name": "config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  101,
+                  103,
+                  100,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "attestor_set",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  116,
+                  116,
+                  101,
+                  115,
+                  116,
+                  111,
+                  114,
+                  95,
+                  115,
+                  101,
+                  116
+                ]
+              }
+            ]
+          }
+        },
         {
           "name": "stable_meta",
           "writable": true,
@@ -152,6 +207,13 @@
           "signer": true
         },
         {
+          "name": "instructions",
+          "docs": [
+            "load_instruction_at_checked for ed25519 signature introspection."
+          ],
+          "address": "Sysvar1nstructions1111111111111111111111111"
+        },
+        {
           "name": "system_program",
           "address": "11111111111111111111111111111111"
         }
@@ -180,6 +242,93 @@
               "u8",
               64
             ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "configure_attestors",
+      "discriminator": [
+        151,
+        123,
+        196,
+        7,
+        168,
+        30,
+        25,
+        203
+      ],
+      "accounts": [
+        {
+          "name": "config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  101,
+                  103,
+                  100,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "attestor_set",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  116,
+                  116,
+                  101,
+                  115,
+                  116,
+                  111,
+                  114,
+                  95,
+                  115,
+                  101,
+                  116
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "config"
+          ]
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "threshold",
+          "type": "u8"
+        },
+        {
+          "name": "attestors",
+          "type": {
+            "vec": "pubkey"
           }
         }
       ]
@@ -439,7 +588,46 @@
           }
         },
         {
+          "name": "attestation",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  101,
+                  115,
+                  101,
+                  114,
+                  118,
+                  101,
+                  95,
+                  97,
+                  116,
+                  116,
+                  101,
+                  115,
+                  116,
+                  97,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "stable_mint"
+              }
+            ]
+          }
+        },
+        {
           "name": "stable_mint",
+          "writable": true
+        },
+        {
+          "name": "destination",
           "writable": true
         },
         {
@@ -448,15 +636,15 @@
           "relations": [
             "stable_meta"
           ]
+        },
+        {
+          "name": "token_program",
+          "address": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"
         }
       ],
       "args": [
         {
           "name": "amount",
-          "type": "u64"
-        },
-        {
-          "name": "reserve_value_usd",
           "type": "u64"
         }
       ]
@@ -574,7 +762,12 @@
         },
         {
           "name": "stable_mint",
-          "writable": true
+          "docs": [
+            "New Token-2022 mint account. Created and initialized in this handler,",
+            "so it must sign and be owned by the system program on entry."
+          ],
+          "writable": true,
+          "signer": true
         },
         {
           "name": "issuer",
@@ -668,6 +861,19 @@
   ],
   "accounts": [
     {
+      "name": "AttestorSet",
+      "discriminator": [
+        202,
+        26,
+        217,
+        84,
+        207,
+        111,
+        64,
+        117
+      ]
+    },
+    {
       "name": "Config",
       "discriminator": [
         155,
@@ -732,6 +938,19 @@
         52,
         71,
         7
+      ]
+    },
+    {
+      "name": "AttestorSetConfigured",
+      "discriminator": [
+        240,
+        222,
+        214,
+        204,
+        35,
+        49,
+        3,
+        142
       ]
     },
     {
@@ -893,6 +1112,26 @@
       "code": 6015,
       "name": "InvalidThresholdOrder",
       "msg": "Requested threshold parameters violate ordering invariants"
+    },
+    {
+      "code": 6016,
+      "name": "QuorumNotMet",
+      "msg": "Attestor quorum not met for this attestation"
+    },
+    {
+      "code": 6017,
+      "name": "AttestationMissing",
+      "msg": "No fresh reserve attestation for this stablecoin"
+    },
+    {
+      "code": 6018,
+      "name": "InvalidAttestorConfig",
+      "msg": "Attestor set configuration invalid"
+    },
+    {
+      "code": 6019,
+      "name": "MintAuthorityMismatch",
+      "msg": "Stablecoin mint authority is not the program PDA"
     }
   ],
   "types": [
@@ -920,6 +1159,59 @@
           {
             "name": "reserve_value_usd",
             "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AttestorSet",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "admin",
+            "type": "pubkey"
+          },
+          {
+            "name": "threshold",
+            "type": "u8"
+          },
+          {
+            "name": "count",
+            "type": "u8"
+          },
+          {
+            "name": "attestors",
+            "type": {
+              "array": [
+                "pubkey",
+                5
+              ]
+            }
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AttestorSetConfigured",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "admin",
+            "type": "pubkey"
+          },
+          {
+            "name": "threshold",
+            "type": "u8"
+          },
+          {
+            "name": "count",
+            "type": "u8"
           }
         ]
       }
@@ -1206,6 +1498,14 @@
           },
           {
             "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "breaker_tripped",
+            "type": "bool"
+          },
+          {
+            "name": "decimals",
             "type": "u8"
           }
         ]

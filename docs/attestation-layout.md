@@ -40,40 +40,62 @@ check aborts the instruction with the listed error; see
 - `ratio_bps == floor(reserve_value_usd * 10000 / total_supply)`, otherwise
   `ReservesUnderCollateral`. When `total_supply` is zero the recomputed ratio is zero, so
   `ratio_bps` must also be zero.
-- The `signature` byte string contains at least one non-zero byte, otherwise
-  `AttestorSignatureInvalid`.
+- At least `AttestorSet.threshold` distinct registered attestors must have produced a valid
+  ed25519 signature over the attestation digest, otherwise `QuorumNotMet`. This replaces the
+  earlier non-zero-byte sanity check: the program now performs real signature introspection
+  rather than trusting the stored `signature` bytes.
 
 On first write the program also fixes `stable_mint` and `bump`; subsequent commits reuse
 the same PDA and overwrite the mutable snapshot fields. The `attestor` field always records
 the current signer, and `StablecoinMeta.reserves_value_usd` is updated to the freshly
-committed `reserve_value_usd`.
+committed `reserve_value_usd`. When `ratio_bps` falls below `config.circuit_bps` the commit
+trips `StablecoinMeta.breaker_tripped` and emits `CircuitBreakerTriggered`; when it recovers
+to or above the stable's `min_ratio_bps` the breaker is cleared.
 
-## Attested tuple
+## Attestor set and quorum
 
-The attestor signs the canonical encoding of the tuple
+Signing authority is not implicit in the `attestor` signer. An admin registers an explicit
+`AttestorSet` PDA at `["attestor_set"]` via `configure_attestors`, holding a `threshold` and
+up to five authorized attestor pubkeys. `commit_attestation` only counts signatures from
+pubkeys that `AttestorSet::contains` recognizes, and requires at least `threshold` distinct
+matches. See [error-codes.md](./error-codes.md) for `InvalidAttestorConfig` and
+`QuorumNotMet`.
+
+## Attested digest and ed25519 introspection
+
+The attestors sign a domain-separated 71-byte payload, not the raw tuple:
 
 ```
-(stable_mint, timestamp, total_supply, reserve_value_usd, ratio_bps)
+"PEGD-POR-V1" || stable_mint || timestamp_le || total_supply_le || reserve_value_usd_le || ratio_bps_le
 ```
 
-The `attestor`, `signature`, and `bump` fields are program-side bookkeeping and are not part
-of the signed message. Full Ed25519 curve verification is expected to run in a preceding
-`ed25519_program` instruction in the same transaction; the on-chain non-zero check is a
-sanity guard, not a substitute for that verification.
+`commit_attestation` reconstructs this payload, hashes it with SHA-256 to form the 32-byte
+digest, then walks every preceding instruction in the transaction through the Instructions
+sysvar. For each `ed25519_program` instruction it parses the ed25519 offset headers and
+counts a signature only when its signature, public key, and message all live inside that
+same instruction's data (self-reference offsets), the message equals the digest exactly, and
+the public key is a registered attestor. Cross-instruction references are skipped
+conservatively. The stored `signature`, `attestor`, and `bump` fields remain program-side
+bookkeeping and are not part of the signed message; on-chain enforcement now comes from the
+sysvar introspection and quorum count above, not from the stored bytes.
 
 ## Commit sequence
 
 ```mermaid
 sequenceDiagram
-  participant A as Attestor
+  participant A as Attestors
   participant E as ed25519_program
   participant P as pegd_issuance
+  participant S as AttestorSet PDA
   participant Acc as ReserveAttestation PDA
   A->>A: snapshot supply and reserve value
-  A->>A: compute ratio_bps and sign the tuple
-  A->>E: verify signature over the tuple
+  A->>A: compute ratio_bps and SHA-256 digest of the domain payload
+  A->>E: submit ed25519 verify instructions over the digest
   A->>P: commit_attestation(timestamp, total_supply, reserve_value_usd, ratio_bps, signature)
-  P->>P: check freshness, ratio consistency, non-zero signature
+  P->>P: check freshness and ratio consistency
+  P->>P: introspect preceding ed25519 instructions via sysvar
+  P->>S: match signer pubkeys and count distinct attestors
+  P->>P: require quorum >= threshold
   P->>Acc: write 165-byte snapshot
   P->>P: emit AttestationCommitted
 ```
