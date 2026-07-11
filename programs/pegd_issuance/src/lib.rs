@@ -40,12 +40,20 @@ pub mod pegd_issuance {
         )
     }
 
+    pub fn configure_attestors(
+        ctx: Context<ConfigureAttestors>,
+        threshold: u8,
+        attestors: Vec<Pubkey>,
+    ) -> Result<()> {
+        instructions::configure_attestors::handler(ctx, threshold, attestors)
+    }
+
     pub fn deposit_collateral(ctx: Context<DepositCollateral>, amount: u64) -> Result<()> {
         instructions::deposit::handler(ctx, amount)
     }
 
-    pub fn mint_stable(ctx: Context<MintStable>, amount: u64, reserve_value_usd: u64) -> Result<()> {
-        instructions::mint::handler(ctx, amount, reserve_value_usd)
+    pub fn mint_stable(ctx: Context<MintStable>, amount: u64) -> Result<()> {
+        instructions::mint::handler(ctx, amount)
     }
 
     pub fn burn_stable(ctx: Context<BurnStable>, amount: u64) -> Result<()> {

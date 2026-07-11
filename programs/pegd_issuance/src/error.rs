@@ -34,4 +34,12 @@ pub enum PegdError {
     InsufficientCollateral,
     #[msg("Requested threshold parameters violate ordering invariants")]
     InvalidThresholdOrder,
+    #[msg("Attestor quorum not met for this attestation")]
+    QuorumNotMet,
+    #[msg("No fresh reserve attestation for this stablecoin")]
+    AttestationMissing,
+    #[msg("Attestor set configuration invalid")]
+    InvalidAttestorConfig,
+    #[msg("Stablecoin mint authority is not the program PDA")]
+    MintAuthorityMismatch,
 }
