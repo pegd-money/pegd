@@ -56,3 +56,10 @@ pub struct IssuancePauseChanged {
     pub admin: Pubkey,
     pub paused: bool,
 }
+
+#[event]
+pub struct AttestorSetConfigured {
+    pub admin: Pubkey,
+    pub threshold: u8,
+    pub count: u8,
+}
