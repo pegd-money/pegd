@@ -44,5 +44,5 @@ jobs:
           node-version: 20
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
-      - name: Typecheck packages
-        run: pnpm -r --parallel typecheck
+      - name: Build and typecheck packages
+        run: pnpm -r build && pnpm -r --parallel typecheck
