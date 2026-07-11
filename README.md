@@ -154,6 +154,18 @@ cargo check --workspace
 
 Anchor integration tests exercise the initialize / register / deposit / mint / burn / attest paths against a local validator via `anchor test`.
 
+## Deployments
+
+The issuance program is live on Solana devnet. A mainnet deployment follows the external review noted under [Security](#security).
+
+| Resource | Address |
+| --- | --- |
+| Program (devnet) | [`HHBnzumd2MyD3nWhD9wfTa1h6G6BrqtSHcKp2EpoZX1x`](https://explorer.solana.com/address/HHBnzumd2MyD3nWhD9wfTa1h6G6BrqtSHcKp2EpoZX1x?cluster=devnet) |
+| On-chain IDL | [`CusPaCWiKe75W8BhCpxUwtCDBSfsYto6d4RKjpW5gC96`](https://explorer.solana.com/address/CusPaCWiKe75W8BhCpxUwtCDBSfsYto6d4RKjpW5gC96?cluster=devnet) |
+| Deploy transaction | [`5KLQ8EfScjKAGTW16Gq1vHr75rpUeWoZtGY48RVmeX3Z2wmvoHEHGjPN8RqQDhr474SNS4s5T5PbxAST7j3JiBwo`](https://explorer.solana.com/tx/5KLQ8EfScjKAGTW16Gq1vHr75rpUeWoZtGY48RVmeX3Z2wmvoHEHGjPN8RqQDhr474SNS4s5T5PbxAST7j3JiBwo?cluster=devnet) |
+
+The program ID above matches `declare_id!` in `programs/pegd_issuance/src/lib.rs` and the `address` field of the committed IDL, so the source in this repository resolves to the on-chain program.
+
 ## Repository Layout
 
 ```
