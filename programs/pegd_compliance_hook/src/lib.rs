@@ -25,7 +25,8 @@ pub mod pegd_compliance_hook {
                 (allowlist.entries_len as usize) < MAX_ENTRIES,
                 ComplianceError::AllowlistFull
             );
-            allowlist.entries[allowlist.entries_len as usize] = AllowlistEntry {
+            let idx = allowlist.entries_len as usize;
+            allowlist.entries[idx] = AllowlistEntry {
                 participant,
                 allowed,
             };
