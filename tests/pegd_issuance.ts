@@ -192,7 +192,7 @@ describe('pegd_issuance', () => {
   it('initializes the pegd config', async () => {
     const treasury = Keypair.generate();
     await program.methods
-      .initializeConfig(15_000, 12_500, 11_000)
+      .initializeConfig(15_000, 12_000, 11_000)
       .accounts({
         config: configPda,
         admin: wallet,
@@ -202,7 +202,7 @@ describe('pegd_issuance', () => {
       .rpc();
     const configAccount = await (program.account as any).config.fetch(configPda);
     assert.equal(configAccount.minRatioBps, 15_000);
-    assert.equal(configAccount.liquidationBps, 12_500);
+    assert.equal(configAccount.liquidationBps, 12_000);
     assert.equal(configAccount.circuitBps, 11_000);
     assert.equal(configAccount.paused, false);
   });
