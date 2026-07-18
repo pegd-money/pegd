@@ -24,7 +24,7 @@ Three thresholds are wired into the program and mirrored in the TypeScript risk 
 | Constant           | Value  | Meaning                                                             |
 |--------------------|--------|---------------------------------------------------------------------|
 | `MIN_RATIO_BPS`    | 15000  | Registration floor for a crypto-overcollateralized stable.         |
-| `LIQUIDATION_BPS`  | 12500  | Below this a partial liquidation is planned.                        |
+| `LIQUIDATION_BPS`  | 12000  | Below this a partial liquidation is planned.                        |
 | `CIRCUIT_BREAKER_BPS` | 11000 | Below this the program refuses mints and emits a breaker event.    |
 | `HARD_FLOOR_BPS`   | 10000  | Below this the token is under-peg and the risk module treats it as a total failure. |
 

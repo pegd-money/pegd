@@ -1,5 +1,5 @@
 export const MIN_RATIO_BPS = 15_000;
-export const LIQUIDATION_BPS = 12_500;
+export const LIQUIDATION_BPS = 12_000;
 export const CIRCUIT_BREAKER_BPS = 11_000;
 export const HARD_FLOOR_BPS = 10_000;
 
