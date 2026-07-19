@@ -10,6 +10,8 @@ The first white-label stablecoin issuance framework on Solana.
 
 [Website](https://pegd.money) . [X/Twitter](https://x.com/pegdmoney) . [Docs](./docs/architecture.md)
 
+**CA:** `h5UtFP2Qw4vuAvtyvW6Sf22G7tHN5QjcVaaTNCdpump`
+
 [![Build](https://img.shields.io/github/actions/workflow/status/pegd-money/pegd/ci.yml?branch=main&label=build)](https://github.com/pegd-money/pegd/actions)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![Rust](https://img.shields.io/badge/rust-1.79%2B-orange.svg)](https://www.rust-lang.org)
