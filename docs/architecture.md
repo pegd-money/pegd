@@ -80,7 +80,7 @@ Attestors typically fetch collateral prices from Pyth Hermes, snapshot the on-ch
 
 ## CLI
 
-`pegd-cli` wraps the SDK. It exposes `pegd issue`, `pegd mint`, `pegd burn`, `pegd reserves`, `pegd por`, `pegd stress`, and `pegd config`. The stress command runs a downside shock against a synthetic collateral position and reports whether the circuit breaker would trip.
+The `@pegd/cli` package wraps the SDK. It exposes `pegd issue`, `pegd mint`, `pegd burn`, `pegd reserves`, `pegd por`, `pegd stress`, and `pegd config`. The stress command runs a downside shock against a synthetic collateral position and reports whether the circuit breaker would trip.
 
 ## Compliance Hook
 

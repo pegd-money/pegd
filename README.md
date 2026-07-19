@@ -19,7 +19,7 @@ The first white-label stablecoin issuance framework on Solana.
 [![Solana](https://img.shields.io/badge/solana-mainnet--beta-14F195.svg)](https://solana.com)
 [![Token-2022](https://img.shields.io/badge/token--2022-extensions-14F195.svg)](https://spl.solana.com/token-2022)
 [![TypeScript](https://img.shields.io/badge/typescript-5.6-3178C6.svg)](https://www.typescriptlang.org)
-[![npm](https://img.shields.io/badge/npm-pegd--cli-CB3837.svg)](https://www.npmjs.com/package/pegd-cli)
+[![npm](https://img.shields.io/badge/npm-%40pegd%2Fcli-CB3837.svg)](https://www.npmjs.com/package/@pegd/cli)
 [![Docs](https://img.shields.io/badge/docs-architecture-7FB2C4.svg)](./docs/architecture.md)
 [![X](https://img.shields.io/badge/x-@pegdmoney-000000.svg)](https://x.com/pegdmoney)
 
@@ -106,10 +106,17 @@ Both the on-chain program and the risk module hold the same thresholds. This is 
 
 ## CLI and SDK
 
-Install the CLI from a workspace build:
+Install the CLI globally from npm:
 
 ```
-pnpm --filter pegd-cli build
+npm i -g @pegd/cli
+pegd --help
+```
+
+Or run it straight from a workspace build:
+
+```
+pnpm --filter @pegd/cli build
 node ts/cli/dist/cli.js --help
 ```
 
@@ -117,8 +124,12 @@ Typical usage:
 
 ```
 pegd config:set --rpc https://api.mainnet-beta.solana.com --cluster mainnet-beta
+pegd config
 pegd issue USDpg --peg USD --collateral crypto --target 1000000
+pegd mint --mint <mint> --amount 250000
+pegd burn --mint <mint> --amount 100000
 pegd reserves <mint>
+pegd por <mint>
 pegd stress --mode crypto --collateral 1500000 --issued 1000000 --shock 30
 ```
 

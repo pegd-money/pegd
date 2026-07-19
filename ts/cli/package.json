@@ -1,5 +1,5 @@
 {
-  "name": "pegd-cli",
+  "name": "@pegd/cli",
   "version": "0.1.0",
   "description": "Pegd command line -- issue stablecoins, query reserves, run PoR checks, stress the peg.",
   "type": "module",
@@ -8,23 +8,34 @@
     "pegd": "./dist/cli.js"
   },
   "files": ["dist"],
+  "author": "pegd-money",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pegd-money/pegd"
+  },
+  "homepage": "https://pegd.money",
+  "keywords": ["solana", "stablecoin", "issuance", "proof-of-reserve", "cli"],
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "node build.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@pegd/issuance-core": "workspace:*",
-    "@pegd/risk-module": "workspace:*",
-    "@pegd/sdk": "workspace:*",
     "@solana/web3.js": "^1.98.0",
     "bn.js": "^5.2.1",
     "chalk": "^5.3.0",
     "commander": "^12.1.0"
   },
   "devDependencies": {
+    "@pegd/issuance-core": "workspace:*",
+    "@pegd/risk-module": "workspace:*",
     "@types/bn.js": "^5.1.6",
     "@types/node": "^22.10.2",
+    "esbuild": "^0.24.0",
     "typescript": "^5.6.3"
   }
 }

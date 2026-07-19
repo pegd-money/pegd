@@ -4,7 +4,14 @@ import { loadConfig } from '../config.js';
 
 export async function por(mintStr: string): Promise<void> {
   const cfg = loadConfig();
-  const mint = new PublicKey(mintStr);
+  let mint: PublicKey;
+  try {
+    mint = new PublicKey(mintStr);
+  } catch {
+    console.log(chalk.bold.cyan(`Proof-of-Reserve status for ${mintStr}`));
+    console.log(chalk.yellow('  invalid mint address -- expected a base58 Solana public key.'));
+    return;
+  }
   console.log(chalk.bold.cyan(`Proof-of-Reserve status for ${mint.toBase58()}`));
   console.log(`  program id: ${cfg.programId ?? '(unregistered)'}`);
   console.log(`  cluster:    ${cfg.cluster}`);
