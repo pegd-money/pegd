@@ -158,13 +158,13 @@ Anchor integration tests exercise the initialize / register / deposit / mint / b
 
 ## Deployments
 
-The issuance program is live on Solana devnet. A mainnet deployment follows the external review noted under [Security](#security).
+The issuance program is live on Solana mainnet, promoted after devnet validation. An external review is still pending -- see [Security](#security).
 
 | Resource | Address |
 | --- | --- |
-| Program (devnet) | [`HHBnzumd2MyD3nWhD9wfTa1h6G6BrqtSHcKp2EpoZX1x`](https://explorer.solana.com/address/HHBnzumd2MyD3nWhD9wfTa1h6G6BrqtSHcKp2EpoZX1x?cluster=devnet) |
-| On-chain IDL | [`CusPaCWiKe75W8BhCpxUwtCDBSfsYto6d4RKjpW5gC96`](https://explorer.solana.com/address/CusPaCWiKe75W8BhCpxUwtCDBSfsYto6d4RKjpW5gC96?cluster=devnet) |
-| Deploy transaction | [`5KLQ8EfScjKAGTW16Gq1vHr75rpUeWoZtGY48RVmeX3Z2wmvoHEHGjPN8RqQDhr474SNS4s5T5PbxAST7j3JiBwo`](https://explorer.solana.com/tx/5KLQ8EfScjKAGTW16Gq1vHr75rpUeWoZtGY48RVmeX3Z2wmvoHEHGjPN8RqQDhr474SNS4s5T5PbxAST7j3JiBwo?cluster=devnet) |
+| Program (mainnet) | [`DfgzHBWQQjfxvuX668Bkm73SkQXQSr111cJVVGf8ubFq`](https://explorer.solana.com/address/DfgzHBWQQjfxvuX668Bkm73SkQXQSr111cJVVGf8ubFq) |
+| On-chain IDL | [`b4JjnQViKLifHdnrDJZiuRR5o1xqm5Gzpydhmn4kv1q`](https://explorer.solana.com/address/b4JjnQViKLifHdnrDJZiuRR5o1xqm5Gzpydhmn4kv1q) |
+| Deploy transaction | [`27C12zvVzrMTaWfL12daqXFpMbjUZe9Kthvnrjiyy96ikaAx3EY6wbBSEWcpoT5zDDR3ZwMmQu4bYSoSrhwVF3aF`](https://explorer.solana.com/tx/27C12zvVzrMTaWfL12daqXFpMbjUZe9Kthvnrjiyy96ikaAx3EY6wbBSEWcpoT5zDDR3ZwMmQu4bYSoSrhwVF3aF) |
 
 The program ID above matches `declare_id!` in `programs/pegd_issuance/src/lib.rs` and the `address` field of the committed IDL, so the source in this repository resolves to the on-chain program.
 
